@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Food Passion · Unsere Locations</title>
+    <!-- Google Fonts: Playfair Display + Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (free icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #F5F0E8;  /* cremeweiss */
+            font-family: 'Inter', sans-serif;
+            color: #2C2B28;
+            scroll-behavior: smooth;
+        }
+
+        /* Header / Hero */
+        .hero {
+            background: linear-gradient(135deg, #1A3F2C 0%, #2C5A3A 100%);
+            color: white;
+            padding: 3rem 2rem 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: "🍷";
+            font-size: 180px;
+            opacity: 0.08;
+            position: absolute;
+            right: -30px;
+            bottom: -40px;
+            pointer-events: none;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.75rem;
+            animation: fadeDown 0.8s ease-out;
+        }
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+            animation: fadeUp 0.8s ease-out 0.1s both;
+        }
+        .hero .sub {
+            margin-top: 1rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            font-size: 1rem;
+        }
+
+        /* Filter / Kategorie (optional) */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            margin: 2rem 1rem 1rem;
+        }
+        .filter-btn {
+            background: transparent;
+            border: 1px solid #D4A373;
+            padding: 0.5rem 1.25rem;
+            border-radius: 40px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #4A3B2A;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: #D4A373;
+            color: #1A3F2C;
+            border-color: #D4A373;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        /* Grid Layout */
+        .locations-grid {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Card Animation */
+        .location-card {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: cardReveal 0.6s forwards;
+            animation-delay: calc(0.03s * var(--order, 0));
+            will-change: transform;
+        }
+        .location-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 40px rgba(0, 0, 0, 0.12);
+        }
+        /* Platzhalter-Bild mit farbigem Hintergrund + Emoji (als Illustration) */
+        .card-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+            background-blend-mode: overlay;
+        }
+        .img-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+            width: 100%;
+            padding: 1rem;
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+            font-family: 'Playfair Display', serif;
+        }
+        /* individuelle farben/hintergründe als platzhalter (ästhetisch) */
+        .card-content {
+            padding: 1.5rem;
+        }
+        .location-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1A3F2C;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+        .tagline {
+            font-style: italic;
+            color: #C1663B;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            border-left: 3px solid #D4A373;
+            padding-left: 0.75rem;
+        }
+        .description {
+            font-size: 0.9rem;
+            line-height: 1.45;
+            color: #3A3A38;
+            margin-bottom: 1.25rem;
+        }
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+            margin-bottom: 1.25rem;
+            font-size: 0.8rem;
+            background: #F9F6EF;
+            padding: 0.75rem;
+            border-radius: 18px;
+        }
+        .features i {
+            width: 1.4rem;
+            color: #C1663B;
+        }
+        .features span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .contact-info {
+            border-top: 1px solid #EDE5DA;
+            padding-top: 1rem;
+            font-size: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            color: #5C5B56;
+        }
+        .contact-info i {
+            width: 1.6rem;
+            color: #D4A373;
+        }
+        .btn-rent {
+            margin-top: 1rem;
+            background: transparent;
+            border: 1px solid #D4A373;
+            border-radius: 30px;
+            padding: 0.4rem 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #1A3F2C;
+            transition: 0.2s;
+            cursor: default;
+            display: inline-block;
+        }
+        .btn-rent i {
+            font-size: 0.7rem;
+            margin-right: 4px;
+        }
+        footer {
+            background: #1A3F2C;
+            color: #E9E1D4;
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.85rem;
+            margin-top: 2rem;
+        }
+
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-25px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(25px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        @keyframes cardReveal {
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        @media (max-width: 760px) {
+            .hero h1 { font-size: 2.4rem; }
+            .locations-grid { padding: 0 1rem 2rem; gap: 1.4rem; }
+            .location-name { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <h1>sinnvoll · betreiben mit food passion</h1>
+    <p>Mediterrane Lebensfreude, alpine Herzlichkeit und einzigartige Locations –<br> 
+    Ihre exklusive Eventlocation oder Ihr Lieblingsplatz für genussvolle Momente.</p>
+    <div class="sub">✨ 13 Häuser · voller Charakter · exklusiv mietbar ✨</div>
+</div>
+
+<div class="filter-bar" id="filterBar">
+    <button class="filter-btn active" data-filter="all">Alle anzeigen</button>
+    <button class="filter-btn" data-filter="restaurant">Restaurant / Gast</button>
+    <button class="filter-btn" data-filter="hotel">Hotel & Seminar</button>
+    <button class="filter-btn" data-filter="event">Eventhalle</button>
+</div>
+
+<div class="locations-grid" id="locationsGrid"></div>
+
+<footer>
+    <i class="fas fa-heart" style="color: #D4A373;"></i> Food Passion – Hauptstrasse 50, 6015 Luzern · 041 322 13 13 · sinnvoll@foodpassion.ch <br>
+    Alle Räumlichkeiten können exklusiv gemietet werden · Parkplätze vorhanden
+</footer>
+
+<script>
+    // DATENSATZ basierend auf der Präsentation
+    const locations = [
+        {
+            name: "Restaurant Grottino 1313",
+            tagline: "Amore auf den ersten Biss.",
+            description: "Mediterrane Lebensfreude, kulinarischer Hochgenuss und ein unvergleichliches Ambiente – das Grottino 1313 ist eine einzigartige Oase für weltoffene Geniesser und schwer verliebte Romantiker.",
+            features: ["80 Plätze Restaurant", "16/40 Atelier (Sitz/Steh)", "55 Terrasse", "42 Weinkeller (Sitz/60 Steh)", "Seminar 12 Pers."],
+            contact: ["Industriestrasse 7, 6005 Luzern", "041 610 13 13", "info@grottino1313.ch"],
+            category: "restaurant",
+            bgStyle: "linear-gradient(125deg, #B87333, #9B4E2E)", // warm mediterran
+            icon: "🍝"
+        },
+        {
+            name: "Restaurant gartenHAUS 1313",
+            tagline: "Gute alte Zeiten neu kreiert!",
+            description: "Im gartenHAUS einkehren bedeutet: nach Hause kommen. Alte Rezepte neu entdeckt, verfeinert & leicht gemacht. Ein Ort für heimatverbundene Trendsetter und Nostalgiker.",
+            features: ["65 Plätze Restaurant", "35 Lindenstrübli", "65 Terrasse", "Seminar 20 Pers."],
+            contact: ["Lindenstrasse 21, 6015 Luzern", "041 240 25 65", "info@gartenhaus1313.ch"],
+            category: "restaurant",
+            bgStyle: "linear-gradient(125deg, #5F8B6F, #3E6B4C)",
+            icon: "🌿"
+        },
+        {
+            name: "feRUS hotel | bar | grill",
+            tagline: "Authentizität und Innovation.",
+            description: "Feurige Grillspezialitäten, saftige Burger, kühles Bier – hier kennt Genuss keine Grenzen. Der Büezer aus der Nachbarschaft trifft den trendbewussten Geniesser.",
+            features: ["22 Hotelzimmer", "100 Restaurant", "80 Terrasse", "Weinkeller 15", "Bar 16 Sitzplätze"],
+            contact: ["Rothenburgstrasse 45, 6020 Emmenbrücke", "041 211 13 31", "info@ferus.ch"],
+            category: "hotel",
+            bgStyle: "linear-gradient(125deg, #8B3C2C, #A8573D)",
+            icon: "🥩"
+        },
+        {
+            name: "Food Passion (Seetalplatz)",
+            tagline: "Energie-Speicher für den ganzen Tag.",
+            description: "Schon unsere Grosseltern wussten: Ohne Frühstück ist man halber Mensch. Wir tanken deinen Tag mit allem Guten – den ganzen Tag lang. Am Abend exklusiv mietbar.",
+            features: ["54–60 Restaurantplätze", "22 Terrasse", "Parkplätze", "Abends exklusiv buchbar"],
+            contact: ["Hauptstrasse 50, 6015 Luzern", "041 322 13 13", "sinnvoll@foodpassion.ch"],
+            category: "restaurant",
+            bgStyle: "linear-gradient(125deg, #DEA057, #BD7F3A)",
+            icon: "🍳"
+        },
+        {
+            name: "Startklar Emmen",
+            tagline: "Fetzige Events & rauschende Feste.",
+            description: "Hochzeiten, Firmenfeiern, Geburtstags- und Weihnachtspartys – das Eventlokal in Emmen. Hier knallen die Korken!",
+            features: ["130 Plätze Halle", "80–100 Seminarbestuhlung", "exklusiv mietbar"],
+            contact: ["Buholzstrasse 12, 6032 Emmen", "041 520 74 00", "info@startklaremmen.ch"],
+            category: "event",
+            bgStyle: "linear-gradient(125deg, #CF9743, #B55B2A)",
+            icon: "🎉"
+        },
+        {
+            name: "Hotel Alpenblick Weggis",
+            tagline: "Über den Dächern von Weggis.",
+            description: "Perfekte Lage zwischen Luzern und Zug, mitten im Naherholungsgebiet. Ideal für Geschäftsreisende und Individualgäste, die Alpenpanorama lieben.",
+            features: ["30 Zimmer, 50 Betten", "92 Restaurant", "80 Terrasse", "Weinkeller 15", "Seminar 40 Pers."],
+            contact: ["Luzernerstrasse 31, 6353 Weggis", "041 399 05 05", "info@alpenblick-weggis.ch"],
+            category: "hotel",
+            bgStyle: "linear-gradient(125deg, #3A6B8C, #265C7A)",
+            icon: "🏔️"
+        },
+        {
+            name: "Hotel & Restaurant Kaiserstuhl",
+            tagline: "Liebhaber lukullischer Regionalität.",
+            description: "Atemberaubender Blick auf den Lungernsee und die Bergwelt. Genuss in allen Formen – herzlich, warm, unvergesslich.",
+            features: ["20 Zimmer, 45 Betten", "60 Restaurant", "Biergarten 46", "Terrasse 76", "Weinkeller 12", "Seminar 20"],
+            contact: ["Brünigstrasse 232, 6078 Bürglen", "041 310 13 13", "info@kaiserstuhl-lungernsee.ch"],
+            category: "hotel",
+            bgStyle: "linear-gradient(125deg, #30735C, #1F5E4B)",
+            icon: "⛰️"
+        },
+        {
+            name: "Passhöhe1013 (Brünig)",
+            tagline: "Nirgendwo schmeckts besser als ganz oben!",
+            description: "Höhenluft macht hungrig – direkt am Brünigpass. Eine besondere Raststätte für Reisende, Ausflügler und Geniesser. Lass dich verwöhnen!",
+            features: ["65 Restaurantplätze", "50 Terrasse", "exklusiv mietbar"],
+            contact: ["Brünig 645, 3860 Brünig", "033 522 13 23", "info@passhoehe1013.ch"],
+            category: "restaurant",
+            bgStyle: "linear-gradient(125deg, #8C9A6E, #6C7C52)",
+            icon: "🏔️"
+        },
+        {
+            name: "Hotel Wetterhorn Hasliberg",
+            tagline: "Harmonie von Alpenpanorama & ursprünglicher Wildheit.",
+            description: "Eingebettet in unberührte Natur, fernab der Städte und doch am Puls des Lebens. Genuss für Körper und Seele.",
+            features: ["19 Zimmer, 68 Betten", "60 Restaurant", "Bar 30/350 (Sitz/Steh)", "30 Terrasse", "Weinkeller 12", "Seminar 12-18"],
+            contact: ["Hohfluh, 6083 Hasliberg", "033 975 13 13", "info@wetterhorn-hasliberg.ch"],
+            category: "hotel",
+            bgStyle: "linear-gradient(125deg, #517B6B, #2C5543)",
+            icon: "🏨"
+        },
+        {
+            name: "Gasthof Bären Hasliberg",
+            tagline: "Pasta, Pizza, Perfetto!",
+            description: "Mit purer Italianità, grosser Lebensfreude & maximalem Können begeistert das Team. Hausgemachte Pasta & Pizza nach alten Rezepten.",
+            features: ["8 Zimmer, 22 Betten", "60 Restaurant", "30 Terrasse", "Seminar 20 Pers."],
+            contact: ["Sattel 35, 6083 Hasliberg", "033 522 13 22", "info@diepizzeria.ch"],
+            category: "restaurant",
+            bgStyle: "linear-gradient(125deg, #C46B3E, #A84C2A)",
+            icon: "🍕"
+        },
+        {
+            name: "Landgasthof Drei Könige",
+            tagline: "Atmosphäre, Privatsphäre, Biosphäre.",
+            description: "Uriges, urchiges & ehrliches Koch-Handwerk. Feine Zutaten und purer Genuss aus dem Entlebuch – mit einer sinnvollen Prise Originalität.",
+            features: ["11 Zimmer, 20 Betten", "Saal 200 Plätze", "Bauernstube 30", "Biedermeier Stube 30", "Schibi Keller 40/80"],
+            contact: ["Dorf 27, 6162 Entlebuch", "041 480 12 27", "info@3koenige-entlebuch.ch"],
+            category: "hotel",
+            bgStyle: "linear-gradient(125deg, #996F41, #7B5532)",
+            icon: "👑"
+        },
+        {
+            name: "Seminarraum Grottino 1313 (Variante)",
+            tagline: "Exklusive Anlässe im Weinkeller & Atelier",
+            description: "Seminare, Events oder Familienfeiern: flexible Raumlösungen ergänzen das Grottino. Atmosphäre mit mediterranem Flair.",
+            features: ["Weinkeller 42/60 (Sitz/Steh)", "Atelier 16 Sitz / 40 Steh", "Seminarraum 12 Pers."],
+            contact: ["Industriestrasse 7, Luzern", "041 610 13 13", "info@grottino1313.ch"],
+            category: "event",
+            bgStyle: "linear-gradient(125deg, #9C6E4E, #765037)",
+            icon: "🍷"
+        },
+        {
+            name: "Hotel & Restaurant Kaiserstuhl (Event-Saal)",
+            tagline: "Feste mit Bergpanorama",
+            description: "Der Saal eignet sich für Firmenfeiern, Hochzeiten und große Runden. Atemberaubende Kulisse direkt am Lungernsee.",
+            features: ["Saal / Restaurant 60", "Biergarten 46", "Terrasse 76", "Seminar 20"],
+            contact: ["Brünigstrasse 232, Bürglen", "041 310 13 13", "info@kaiserstuhl-lungernsee.ch"],
+            category: "event",
+            bgStyle: "linear-gradient(125deg, #3F7864, #2C5C4A)",
+            icon: "🏞️"
+        }
+    ];
+
+    // Mapping für individuelle Hintergrundbilder – wir nutzen farbige Gradienten + kleine Illustration durch Emoji
+    // Daten korrigieren: doppelte? trotzdem alle einzigartig
+    // Für das grid rendern
+    function renderCards(filterValue = "all") {
+        const grid = document.getElementById("locationsGrid");
+        grid.innerHTML = "";
+        const filtered = filterValue === "all" ? locations : locations.filter(loc => loc.category === filterValue);
+        if (filtered.length === 0) {
+            grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:3rem;">Keine Locations in dieser Kategorie – bitte einen anderen Filter wählen ❤️</div>`;
+            return;
+        }
+        filtered.forEach((loc, idx) => {
+            const card = document.createElement("div");
+            card.className = "location-card";
+            // individuelle animations verzögerung basierend auf index
+            card.style.setProperty("--order", idx % 15);
+            
+            // Features HTML generieren
+            const featuresHtml = loc.features.map(f => `<span><i class="fas fa-check-circle"></i> ${f}</span>`).join("");
+            const contactHtml = loc.contact.map(c => {
+                let icon = "fa-location-dot";
+                if (c.includes("@")) icon = "fa-envelope";
+                else if (c.match(/0\d{2,3}/) || c.includes("+")) icon = "fa-phone";
+                else if (c.includes("Str") || c.includes("weg")) icon = "fa-location-dot";
+                return `<span><i class="fas ${icon}"></i> ${c}</span>`;
+            }).join("");
+            
+            // individuelle icon visuelle im header ersetzen optional
+            const bgGradient = loc.bgStyle;
+            const imgDiv = document.createElement("div");
+            imgDiv.className = "card-img";
+            imgDiv.style.background = `${bgGradient}, url('https://placehold.co/600x400/${bgGradient.slice(16,23)}/white?text=${encodeURIComponent(loc.icon)}')`;
+            imgDiv.style.backgroundSize = "cover";
+            imgDiv.style.backgroundBlendMode = "overlay";
+            const overlaySpan = document.createElement("div");
+            overlaySpan.className = "img-overlay";
+            overlaySpan.innerHTML = `<i class="fas fa-utensils" style="margin-right:6px;"></i> ${loc.icon}  •  exklusiv mietbar`;
+            imgDiv.appendChild(overlaySpan);
+            
+            const content = `
+                <div class="card-content">
+                    <div class="location-name">${loc.name}</div>
+                    <div class="tagline">“${loc.tagline}”</div>
+                    <div class="description">${loc.description}</div>
+                    <div class="features">${featuresHtml}</div>
+                    <div class="contact-info">${contactHtml}</div>
+                    <div class="btn-rent"><i class="fas fa-calendar-alt"></i> Exklusiv mietbar · Parkplätze</div>
+                </div>
+            `;
+            card.appendChild(imgDiv);
+            card.insertAdjacentHTML('beforeend', content);
+            grid.appendChild(card);
+        });
+    }
+
+    // Filter buttons
+    const btns = document.querySelectorAll(".filter-btn");
+    btns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            btns.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            const filterValue = btn.getAttribute("data-filter");
+            renderCards(filterValue);
+        });
+    });
+    
+    // initial render
+    renderCards("all");
+</script>
+</body>
+</html>

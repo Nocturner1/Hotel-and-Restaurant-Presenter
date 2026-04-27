@@ -1,159 +1,278 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Sinnvoll Group Experiences — B2B Erlebnisplaner</title>
-<link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
-<style>
-:root{
-  --ink:#10100e;
-  --ink2:#24241f;
-  --ink3:#6d6a60;
-  --paper:#f7f2e8;
-  --paper2:#ebe2d2;
-  --paper3:#d8cfbd;
-  --white:#fffdf8;
-  --gold:#b08d57;
-  --gold2:#d7bd83;
-  --teal:#1c5b4c;
-  --teal2:#e2f0ea;
-  --blue:#193b6a;
-  --blue2:#e5edf6;
-  --wine:#6a1b1b;
-  --wine2:#f5e8e8;
-  --red:#b43010;
-  --red2:#f9e7df;
-  --shadow:0 18px 50px rgba(16,16,14,.12);
-  --shadow2:0 8px 24px rgba(16,16,14,.09);
-  --r:18px;
-  --r2:30px;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:'Lato',sans-serif;background:var(--paper);color:var(--ink);font-size:16px;line-height:1.6}
-button,input,select,textarea{font-family:inherit}
-button{cursor:pointer}
-a{color:inherit;text-decoration:none}
-
-.header{position:sticky;top:0;z-index:50;background:rgba(16,16,14,.94);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.08)}
-.header-inner{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:22px;padding:14px 34px}
-.brand{display:flex;align-items:center;gap:13px;color:#fff}.mark{display:flex;gap:5px}.sq{width:23px;height:23px;background:#fff}.ci{width:23px;height:23px;border-radius:50%;background:#fff}.brand-main{font-family:'Fjalla One';font-size:19px;letter-spacing:.03em;line-height:1}.brand-sub{font-size:10px;text-transform:uppercase;letter-spacing:.22em;color:var(--gold2);margin-top:4px}.nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.nav button{border:1px solid rgba(255,255,255,.16);background:transparent;color:rgba(255,255,255,.68);border-radius:999px;padding:9px 15px;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;transition:.2s}.nav button:hover,.nav button.active{background:var(--gold);border-color:var(--gold);color:#111}
-
-.hero{background:#000;color:#fff;position:relative;overflow:hidden;min-height:620px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(360px,.9fr)}
-.hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 82% 16%,rgba(176,141,87,.18),transparent 28%),radial-gradient(circle at 10% 88%,rgba(28,91,76,.28),transparent 31%),linear-gradient(135deg,#000,#141411 52%,#101a16)}
-.hero-left{position:relative;z-index:2;padding:74px 54px 58px;display:flex;flex-direction:column;justify-content:space-between}.kicker{font-family:'Fjalla One';letter-spacing:.24em;text-transform:uppercase;color:var(--gold2);font-size:12px;margin-bottom:22px}.hero h1{font-family:'Fjalla One';font-size:clamp(58px,9vw,126px);line-height:.82;letter-spacing:-.06em;max-width:860px}.hero h1 span{font-family:'Lato';font-style:italic;font-weight:300;color:var(--gold2);letter-spacing:-.08em}.copy{max-width:650px;margin-top:26px;color:rgba(255,255,255,.72);font-size:19px;line-height:1.72}.actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}.btn{border:0;border-radius:999px;padding:15px 22px;font-family:'Fjalla One';font-size:15px;letter-spacing:.06em}.btn.primary{background:var(--gold);color:#111}.btn.secondary{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#fff}.hero-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin-top:38px;max-width:760px}.hstat{border:1px solid rgba(255,255,255,.11);background:rgba(255,255,255,.055);border-radius:18px;padding:15px}.hnum{font-family:'Fjalla One';font-size:27px;color:var(--gold2);line-height:1}.hlab{font-size:10px;text-transform:uppercase;letter-spacing:.13em;color:rgba(255,255,255,.42);margin-top:5px}.wordwall{position:relative;z-index:2;border-left:1px solid rgba(255,255,255,.08);background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01));overflow:hidden}.word{position:absolute;color:#fff;font-family:'Fjalla One';opacity:.92;white-space:nowrap}.w1{font-size:72px;left:50px;top:78px}.w2{font-size:38px;right:46px;top:122px;transform:rotate(-3deg)}.w3{font-size:44px;left:86px;top:205px;color:var(--gold2)}.w4{font-size:32px;right:72px;top:265px;font-style:italic}.w5{font-size:60px;left:42px;bottom:150px}.w6{font-size:29px;right:54px;bottom:188px;color:rgba(255,255,255,.72)}.w7{font-size:44px;right:42px;bottom:78px;color:var(--gold2)}.w8{font-size:34px;left:150px;bottom:58px;transform:rotate(-4deg)}
-
-.main{display:grid;grid-template-columns:minmax(0,1fr) 430px;align-items:start}.left{padding:42px 48px 80px;min-width:0}.right{position:sticky;top:72px;height:calc(100vh - 72px);display:flex;flex-direction:column;background:#fff;border-left:1px solid var(--paper3)}.section{margin-bottom:52px}.label{display:flex;align-items:center;gap:14px;font-family:'Fjalla One';font-size:13px;text-transform:uppercase;letter-spacing:.24em;color:var(--gold);margin-bottom:18px}.label:after{content:"";height:1px;background:var(--paper3);flex:1}.intro{max-width:790px;color:var(--ink3);margin:-4px 0 24px;font-size:16px;line-height:1.72}
-
-.journeys{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.journey{min-height:450px;border-radius:32px;overflow:hidden;position:relative;color:#fff;box-shadow:var(--shadow);background:#111;padding:28px;display:flex;flex-direction:column;justify-content:flex-end;cursor:pointer;transition:.25s;border:1px solid rgba(16,16,14,.1)}.journey:hover{transform:translateY(-4px);box-shadow:0 26px 80px rgba(16,16,14,.18)}.journey.active{outline:3px solid var(--gold)}.journey:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,var(--a),var(--b));opacity:.94}.journey:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 72% 10%,rgba(255,255,255,.24),transparent 25%),linear-gradient(to top,rgba(0,0,0,.9),rgba(0,0,0,.18))}.journey>*{position:relative;z-index:2}.tag{align-self:flex-start;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.12);border-radius:999px;padding:7px 11px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:auto}.journey h2{font-family:'Fjalla One';font-size:44px;line-height:.94;letter-spacing:-.03em}.journey p{margin:14px 0;color:rgba(255,255,255,.74);line-height:1.62}.highlights{display:grid;gap:7px;font-size:13px;color:rgba(255,255,255,.84);margin:12px 0 20px}.price{border-top:1px solid rgba(255,255,255,.16);padding-top:16px;display:flex;justify-content:space-between;align-items:flex-end}.price b{font-family:'Fjalla One';font-size:26px;color:var(--gold2)}
-
-.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.mode-card{background:var(--white);border:1px solid var(--paper3);box-shadow:0 8px 24px rgba(16,16,14,.05);border-radius:24px;padding:22px;cursor:pointer;transition:.2s}.mode-card:hover,.mode-card.active{border-color:var(--gold);background:#fffaf0}.mode-card h3{font-family:'Fjalla One';font-size:24px;margin-bottom:8px}.mode-card p{color:var(--ink3);font-size:14px}.builder{display:none;margin-top:22px}.builder.active{display:block}.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}.chip{border:1px solid var(--paper3);background:var(--white);border-radius:999px;padding:9px 16px;font-size:14px;color:var(--ink3);font-weight:700}.chip.active{background:var(--ink);color:#fff;border-color:var(--ink)}.business-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-height:620px;overflow:auto;padding-right:4px}.business{position:relative;background:var(--white);border:1px solid var(--paper3);border-radius:22px;padding:16px;cursor:pointer;transition:.2s}.business:hover{transform:translateY(-2px);box-shadow:var(--shadow2)}.business.active{border-color:var(--teal);background:#ecf5f0}.btop{display:flex;gap:12px;align-items:center}.bmark{width:48px;height:48px;border-radius:16px;background:#111;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Fjalla One';font-size:17px;flex-shrink:0}.bname{font-family:'Fjalla One';font-size:17px;line-height:1.18}.bloc{font-size:13px;color:var(--ink3);margin-top:3px}.btags{display:flex;gap:5px;margin-top:12px;flex-wrap:wrap}.btag{font-size:11px;border-radius:999px;padding:3px 8px;font-weight:700}.hotel{background:var(--blue2);color:var(--blue)}.rest{background:#f0e6d2;color:#765322}.event{background:#eee4f2;color:#533369}.claim{margin-top:10px;color:var(--ink3);font-size:13px;font-style:italic}.nights{display:none;margin-top:12px;align-items:center;gap:10px}.business.active .nights{display:flex}.nights button{width:26px;height:26px;border-radius:50%;border:1px solid var(--teal);background:transparent;color:var(--teal);font-weight:700}.nval{font-family:'Fjalla One';color:var(--teal)}
-
-.offers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.offer{background:var(--white);border:1px solid var(--paper3);border-radius:26px;padding:22px;box-shadow:0 8px 28px rgba(16,16,14,.06);position:relative;overflow:hidden;cursor:pointer;transition:.2s}.offer:before{content:"";position:absolute;right:-46px;top:-46px;width:150px;height:150px;border-radius:50%;background:var(--accent);opacity:.12}.offer:hover{transform:translateY(-3px);box-shadow:var(--shadow2)}.offer.active{outline:3px solid var(--gold)}.offer h3{position:relative;font-family:'Fjalla One';font-size:25px;margin-bottom:8px}.offer p,.offer ul{position:relative}.offer p{color:var(--ink3);font-size:14px}.offer ul{margin:14px 0 0 17px;font-size:14px;color:var(--ink2)}.offer li{margin:5px 0}.offer-price{font-family:'Fjalla One';color:var(--gold);font-size:20px;margin-top:16px;position:relative}
-
-.mice{display:grid;grid-template-columns:1fr .72fr;gap:18px;background:linear-gradient(135deg,#171714,#26312a);color:#fff;border-radius:32px;padding:30px;box-shadow:var(--shadow);overflow:hidden;cursor:pointer}.mice.active{outline:3px solid var(--gold)}.mice h3{font-family:'Fjalla One';font-size:42px;line-height:.96}.mice p{color:rgba(255,255,255,.7);line-height:1.65;margin-top:12px}.mice-list{display:grid;gap:10px;margin-top:18px}.mice-item{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:12px}.mice-aside{display:flex;flex-direction:column;justify-content:space-between;gap:14px}.mice-price{font-family:'Fjalla One';font-size:28px;color:var(--gold2)}.mice-note{font-size:13px;color:rgba(255,255,255,.52)}
-
-.wine{border:1px solid var(--wine);border-radius:28px;overflow:hidden;background:var(--white);box-shadow:var(--shadow2)}.wine-head{background:linear-gradient(135deg,#5a1717,#7d2525);color:#fff;padding:22px;display:flex;justify-content:space-between;align-items:center;gap:18px;cursor:pointer}.wine-title{font-family:'Fjalla One';font-size:26px}.wine-sub{color:rgba(255,255,255,.65);font-size:13px;margin-top:3px}.wine-body{display:none;padding:20px}.wine-body.open{display:block}.wine-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.wine-card{border:1px solid #ead6d6;border-radius:18px;padding:14px;cursor:pointer}.wine-card.active{background:#f9eeee;border-color:var(--wine)}.wine-card h4{font-family:'Fjalla One';font-size:17px}.wine-card p{font-size:13px;color:var(--ink3);margin-top:4px}.wine-card span{font-size:11px;color:var(--wine);font-weight:700;text-transform:uppercase;letter-spacing:.08em}
-
-.travel-pass,.extras-wrap{background:var(--white);border:1px solid var(--paper3);border-radius:24px;padding:20px;box-shadow:0 8px 26px rgba(16,16,14,.05)}.travel-pass{display:flex;align-items:center;gap:16px;cursor:pointer}.travel-pass.active{background:#edf4fb;border-color:var(--blue)}.travel-pass h3{font-family:'Fjalla One';font-size:22px}.travel-pass p{color:var(--ink3);font-size:14px}.toggle{margin-left:auto;width:46px;height:26px;border-radius:999px;background:var(--paper3);position:relative;flex-shrink:0}.toggle:after{content:"";position:absolute;width:20px;height:20px;top:3px;left:3px;border-radius:50%;background:#fff;transition:.2s}.travel-pass.active .toggle{background:var(--blue)}.travel-pass.active .toggle:after{transform:translateX(20px)}.extras-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.extra{border:1px solid var(--paper3);border-radius:16px;padding:13px;cursor:pointer;background:var(--white);display:flex;gap:10px}.extra.active{background:#ecf5f0;border-color:var(--teal)}.box{width:20px;height:20px;border-radius:5px;border:1.5px solid var(--paper3);display:flex;align-items:center;justify-content:center;flex-shrink:0}.extra.active .box{background:var(--teal);border-color:var(--teal);color:#fff}.extra strong{display:block;font-size:14px}.extra small{color:var(--ink3)}
-
-.events-grid,.experience-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.event-card,.experience-card{display:block;background:var(--white);border:1px solid var(--paper3);border-radius:20px;padding:18px;box-shadow:0 8px 24px rgba(16,16,14,.045);transition:.2s}.event-card:hover,.experience-card:hover{transform:translateY(-2px);border-color:var(--gold)}.event-date{font-family:'Fjalla One';font-size:13px;color:var(--gold);letter-spacing:.08em;text-transform:uppercase}.event-title,.exp-title{font-family:'Fjalla One';font-size:19px;margin-top:7px}.event-venue,.exp-desc{color:var(--ink3);font-size:14px;margin-top:5px}.exp-place{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);font-weight:700;margin-top:14px}
-
-.universe{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}.u-card{min-height:105px;border-radius:22px;background:#111;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:14px;font-family:'Fjalla One';font-size:15px;box-shadow:0 6px 18px rgba(16,16,14,.08)}.u-card.light{background:var(--white);border:1px solid var(--paper3);color:#111}.u-card.gold{background:var(--gold);color:#111}
-
-.map{height:320px;background:linear-gradient(135deg,#e5e1d4,#ccd8cd);position:relative;overflow:hidden;z-index:1}.map:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.045) 1px,transparent 1px);background-size:32px 32px}.map-route{position:absolute;left:21%;top:43%;width:54%;height:28%;border-top:2px dashed rgba(16,16,14,.35);border-right:2px dashed rgba(16,16,14,.35);border-radius:0 40px 0 0;transform:rotate(-8deg)}.pin{position:absolute;width:18px;height:18px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 7px rgba(176,141,87,.22);z-index:2}.pin span{position:absolute;top:23px;left:50%;transform:translateX(-50%);background:#fff;color:#111;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.08)}.p-luzern{left:34%;top:37%}.p-weggis{left:58%;top:45%;background:var(--teal);box-shadow:0 0 0 7px rgba(28,91,76,.22)}.p-entlebuch{left:25%;top:67%;background:var(--green,#416747);box-shadow:0 0 0 7px rgba(65,103,71,.18)}.p-bruening{left:66%;top:68%;background:var(--blue);box-shadow:0 0 0 7px rgba(25,59,106,.18)}.p-kaiser{left:55%;top:73%;background:var(--red);box-shadow:0 0 0 7px rgba(180,48,16,.16)}
-.summary{background:#111;color:#fff;flex:1;padding:24px;overflow:auto}.sum-title{font-family:'Fjalla One';font-size:26px}.sum-sub{display:block;margin-top:4px;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.16em;font-size:11px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:22px 0}.field{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:12px}.field label{display:block;color:rgba(255,255,255,.42);font-size:10px;text-transform:uppercase;letter-spacing:.13em;margin-bottom:5px}.field input,.field select{width:100%;background:transparent;border:0;color:#fff;outline:none;font-weight:700;font-size:15px}.field select option{background:#111}.empty{text-align:center;color:rgba(255,255,255,.28);font-size:14px;padding:42px 20px}.sum-label{font-family:'Fjalla One';font-size:12px;text-transform:uppercase;letter-spacing:.18em;color:var(--gold2);margin:18px 0 8px}.sum-item{padding:11px 0;border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;gap:12px}.sum-name{font-size:14px;color:rgba(255,255,255,.86)}.sum-detail{font-size:12px;color:rgba(255,255,255,.36);margin-top:2px}.sum-price{font-size:13px;color:rgba(255,255,255,.58);white-space:nowrap}.total{margin-top:22px;border-top:1px solid rgba(255,255,255,.15);padding-top:18px;display:flex;justify-content:space-between;align-items:flex-end}.total-label{color:rgba(255,255,255,.45);font-size:13px}.total-value{font-family:'Fjalla One';font-size:34px;color:var(--gold2);white-space:nowrap}.note{color:rgba(255,255,255,.25);font-size:11px;margin-top:6px}.summary-cta{padding:20px 24px;background:#111;border-top:1px solid rgba(255,255,255,.08)}.summary-cta button{width:100%;border:0;border-radius:18px;padding:15px;font-family:'Fjalla One';font-size:16px;letter-spacing:.06em}.summary-cta .ask{background:var(--gold);color:#111}.summary-cta .pdf{margin-top:10px;background:transparent;color:rgba(255,255,255,.54);border:1px solid rgba(255,255,255,.14)}.summary-cta button:disabled{opacity:.35;cursor:not-allowed}
-
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:900;display:none;align-items:center;justify-content:center;padding:20px}.modal.open{display:flex}.modal-box{width:min(720px,96vw);max-height:90vh;overflow:auto;background:var(--paper);border-radius:30px;padding:30px;box-shadow:0 30px 100px rgba(0,0,0,.35)}.modal-head{display:flex;justify-content:space-between;gap:20px;margin-bottom:18px}.modal h2{font-family:'Fjalla One';font-size:34px}.close{width:38px;height:38px;border-radius:50%;border:0;background:var(--paper2);font-size:24px}.modal-summary{background:var(--white);border:1px solid var(--paper3);border-radius:20px;padding:16px;margin-bottom:18px}.form{display:grid;grid-template-columns:1fr 1fr;gap:12px}.form .full{grid-column:1/-1}.form label{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink3);font-weight:700}.form input,.form textarea,.form select{width:100%;margin-top:5px;border:1px solid var(--paper3);border-radius:12px;padding:12px;background:var(--white);font-size:14px}.form textarea{min-height:100px;resize:vertical}.submit{margin-top:18px;width:100%;border:0;border-radius:18px;background:var(--ink);color:#fff;padding:15px;font-family:'Fjalla One';font-size:17px;letter-spacing:.06em}.success{text-align:center;padding:30px}.success .check{width:70px;height:70px;border-radius:50%;background:#e5f1eb;color:var(--teal);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:34px}.success h2{font-family:'Fjalla One'}
-
-@media(max-width:1180px){.hero,.main{grid-template-columns:1fr}.wordwall{min-height:420px;border-left:0;border-top:1px solid rgba(255,255,255,.08)}.right{position:static;height:auto}.journeys,.mice{grid-template-columns:1fr}.offers,.events-grid,.experience-grid,.wine-grid,.universe{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:720px){.header-inner{height:auto;align-items:flex-start;flex-direction:column;padding:16px 18px}.nav{justify-content:flex-start}.hero-left{padding:44px 22px}.left{padding:30px 18px}.wordwall{display:none}.hero h1{font-size:64px}.hero-stats,.mode-grid,.business-grid,.offers,.events-grid,.experience-grid,.extras-grid,.fields,.form,.wine-grid,.universe{grid-template-columns:1fr}.journey{min-height:420px}.mice{padding:22px}.map{height:280px}.modal-box{padding:22px;border-radius:22px}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Food Passion · Sinnvoll betreiben mit Leidenschaft</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #F5F0E8;
+            font-family: 'Inter', sans-serif;
+            color: #2C2B28;
+            scroll-behavior: smooth;
+        }
+        /* Hero mit Bild */
+        .hero {
+            background: linear-gradient(rgba(26, 63, 44, 0.75), rgba(26, 63, 44, 0.85)), url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600');
+            background-size: cover;
+            background-position: center 40%;
+            color: white;
+            padding: 4rem 2rem 5rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+        /* Wortwolke aus dem Hero-Bild – als Overlay-Animation */
+        .hero-values {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem 2rem;
+            margin-top: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            opacity: 0.9;
+        }
+        .hero-values span {
+            background: rgba(255,255,240,0.15);
+            backdrop-filter: blur(4px);
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            animation: floatWords 6s infinite ease-in-out;
+            display: inline-block;
+        }
+        @keyframes floatWords {
+            0%,100%{ transform: translateY(0px);}
+            50%{ transform: translateY(-5px);}
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .hero p { font-size: 1.2rem; max-width: 700px; margin: 0 auto; opacity: 0.9; }
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            margin: 2rem 1.5rem 1rem;
+        }
+        .filter-btn {
+            background: transparent;
+            border: 1px solid #D4A373;
+            padding: 0.5rem 1.25rem;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #4A3B2A;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: #D4A373;
+            color: #1A3F2C;
+            border-color: #D4A373;
+        }
+        .locations-grid {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 2rem;
+        }
+        .location-card {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: cardReveal 0.5s forwards;
+        }
+        @keyframes cardReveal {
+            to { opacity: 1; transform: translateY(0);}
+        }
+        .location-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 25px 35px rgba(0,0,0,0.12);
+        }
+        .card-img {
+            height: 210px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .img-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+            width: 100%;
+            padding: 1rem;
+            color: white;
+            font-weight: 600;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            font-size: 0.8rem;
+        }
+        .card-content { padding: 1.5rem; }
+        .location-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.65rem;
+            font-weight: 700;
+            color: #1A3F2C;
+            margin-bottom: 0.3rem;
+        }
+        .tagline {
+            font-style: italic;
+            color: #C1663B;
+            font-size: 0.85rem;
+            border-left: 3px solid #D4A373;
+            padding-left: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .description { font-size: 0.9rem; line-height: 1.45; margin-bottom: 1rem; color: #3A3A38; }
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+            font-size: 0.75rem;
+            background: #F9F6EF;
+            padding: 0.7rem;
+            border-radius: 18px;
+            margin-bottom: 1rem;
+        }
+        .features i { width: 1.3rem; color: #C1663B; }
+        .contact-info {
+            border-top: 1px solid #EDE5DA;
+            padding-top: 0.8rem;
+            font-size: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .contact-info i { width: 1.5rem; color: #D4A373; }
+        .btn-rent {
+            margin-top: 0.8rem;
+            background: transparent;
+            border: 1px solid #D4A373;
+            border-radius: 30px;
+            padding: 0.3rem 1rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #1A3F2C;
+            display: inline-block;
+            cursor: default;
+        }
+        footer {
+            background: #1A3F2C;
+            color: #E9E1D4;
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.85rem;
+        }
+        @media (max-width: 760px) {
+            .hero h1 { font-size: 2.2rem; }
+            .locations-grid { padding: 0 1rem; gap: 1.4rem; }
+        }
+    </style>
 </head>
 <body>
-<header class="header">
-  <div class="header-inner">
-    <div class="brand"><div class="mark"><div class="sq"></div><div class="ci"></div></div><div><div class="brand-main">Sinnvoll Gastro</div><div class="brand-sub">Group Experiences · B2B</div></div></div>
-    <nav class="nav" id="nav">
-      <button class="active" data-jump="journeys">Reisen</button><button data-jump="builder">Builder</button><button data-jump="tourstops">Bus-Stopps</button><button data-jump="mice">MICE</button><button data-jump="universe">Universum</button>
-    </nav>
-  </div>
-</header>
-<section class="hero">
-  <div class="hero-left">
-    <div>
-      <div class="kicker">Zentralschweiz · Berner Oberland · Gruppenreisen · MICE</div>
-      <h1>Sinnvoll<br><span>erleben.</span></h1>
-      <p class="copy">B2B-Reisen, Seminare, Bus-Stopps und Gruppen-Erlebnisse mit dem gesamten Sinnvoll-Universum: Hotels, Restaurants, Eventräume, Wein, Berg, See und ehrliche Gastfreundschaft.</p>
-      <div class="actions"><button class="btn primary" onclick="jumpTo('mice')">MICE entdecken</button><button class="btn secondary" onclick="jumpTo('builder')">Individuell planen</button></div>
+
+<div class="hero">
+    <h1>sinnvoll · betreiben mit food passion</h1>
+    <p>13 einzigartige Locations · mediterrane Lebensfreude trifft alpine Herzlichkeit</p>
+    <div class="hero-values">
+        <span>✨ SPANNEND</span> <span>🔥 ANDERS</span> <span>💛 FREUD</span> <span>🌿 VIELSEITIG</span>
+        <span>🤝 «HEU» ZÄME</span> <span>🌟 AUTHENTISCH</span> <span>♻️ NACHHALTIG</span>
+        <span>🏆 DAS ORIGINAL</span> <span>💚 SINNVOLL</span> <span>🍷 GENUSSVOLL</span>
+        <span>😌 GEFÜHL</span> <span>🏔️ URCHIG</span> <span>🎯 SPEZIELL</span> <span>✨ ERLEBNIS</span>
     </div>
-    <div class="hero-stats"><div class="hstat"><div class="hnum">2</div><div class="hlab">Signature Reisen</div></div><div class="hstat"><div class="hnum">2</div><div class="hlab">Bus-Stopps</div></div><div class="hstat"><div class="hnum">15+</div><div class="hlab">Bausteine</div></div><div class="hstat"><div class="hnum">1</div><div class="hlab">Anfrage</div></div></div>
-  </div>
-  <div class="wordwall" aria-hidden="true"><div class="word w1">SINNVOLL</div><div class="word w2">ANDERSCH</div><div class="word w3">GENUSSVOLL</div><div class="word w4">«HEU» ZÄME</div><div class="word w5">ERLÄBNIS</div><div class="word w6">AUTHENTISCH</div><div class="word w7">EHRLICH</div><div class="word w8">WICHTIG</div></div>
-</section>
-<main class="main">
-  <div class="left">
-    <section class="section" id="mice">
-      <p class="label">MICE & Incentive</p>
-      <p class="intro">Business zuerst, aber nie trocken: Seminare, Workshops und Team-Erlebnisse mit echten Orten, gutem Essen, See, Berg und kurzen Wegen.</p>
-      <div class="mice" id="miceCard" onclick="toggleMice()"><div><h3>Arbeiten, wo andere staunen.</h3><p>Seminarraum Wattawis im Alpenblick, Brünig-Experience mit Wetterhorn, Bergbahnen, Dinner und Rahmenprogramm. Ideal für Firmen, Teams und Incentives.</p><div class="mice-list"><div class="mice-item">Alpenblick Weggis · Seminar, Terrasse, See</div><div class="mice-item">Wetterhorn / Brünig · Bergbahnen, Natur, Dinner</div><div class="mice-item">Optional · Schifffahrt, Rigi, Travel Pass, Transfers</div></div></div><div class="mice-aside"><div><div class="mice-price">auf Anfrage</div><div class="mice-note">Für Gruppen, Workshops, Retraiten und Incentives.</div></div><button class="btn primary" type="button">In Reise aufnehmen</button></div></div>
-    </section>
+    <div class="sub" style="margin-top:1.2rem; font-size:0.9rem;">❤️ Alle Räumlichkeiten exklusiv mietbar · Parkplätze vorhanden</div>
+</div>
 
-    <section class="section" id="journeys"><p class="label">Signature Journeys</p><p class="intro">Zwei starke Reisen über 3 bis 4 Nächte. Sie zeigen sofort, was die Gruppe kann, bleiben aber modular erweiterbar mit Lucerne Travel Pass, Rigi, Schifffahrt, Weingut Sitenrain, Transfers und Bergtickets.</p><div class="journeys" id="journeyGrid"></div></section>
+<div class="filter-bar" id="filterBar">
+    <button class="filter-btn active" data-filter="all">Alle anzeigen</button>
+    <button class="filter-btn" data-filter="restaurant">Restaurant / Gast</button>
+    <button class="filter-btn" data-filter="hotel">Hotel & Seminar</button>
+    <button class="filter-btn" data-filter="event">Eventhalle / Party</button>
+</div>
 
-    <section class="section" id="tourstops"><p class="label">Busreise Tour-Stopps</p><p class="intro">Klar, realistisch und busfreundlich: Zwei Stopplösungen für Gruppenreisen und Touroperator. Schnell verständlich, gut kombinierbar und stark in der Abwicklung.</p><div class="offers" id="stopGrid"></div></section>
+<div class="locations-grid" id="locationsGrid"></div>
 
-    <section class="section" id="builder"><p class="label">Individueller Builder</p><p class="intro">Das gesamte Sinnvoll-Universum bleibt verfügbar. Betriebe, Nächte, Extras, Weinwelt, Travel Pass und Erlebnisbausteine können frei kombiniert werden.</p><div class="mode-grid"><div class="mode-card active" id="modeJourney" onclick="setMode('journey')"><h3>Reise verfeinern</h3><p>Start mit einer Signature Journey, danach Extras und Partnerangebote ergänzen.</p></div><div class="mode-card" id="modeCustom" onclick="setMode('custom')"><h3>Frei kombinieren</h3><p>Betriebe selbst wählen, Nächte setzen und Reisebausteine ergänzen.</p></div></div><div class="builder" id="customBuilder"><div class="filters" id="filters"></div><div class="business-grid" id="businessGrid"></div></div></section>
+<footer>
+    <i class="fas fa-heart" style="color:#D4A373;"></i> Food Passion Zentrale · Hauptstrasse 50, 6015 Luzern · 041 322 13 13 · sinnvoll@foodpassion.ch
+</footer>
 
-    <section class="section"><div class="travel-pass" id="travelPass" onclick="toggleTravelPass()"><div style="font-size:32px">🎫</div><div><h3>Lucerne Travel Pass optional hinzufügen</h3><p>Schiff, Rigi, Sörenberg, Marbachegg, SBB & PostAuto. Ideal als Mobilitäts- und Erlebnisbaustein.</p></div><div class="toggle"></div></div></section>
-
-    <section class="section"><p class="label">Weinwelt & Genuss</p><div class="wine"><div class="wine-head" onclick="toggleWineOpen()"><div><div class="wine-title">Breitschmid-Heiniger Weinwelt</div><div class="wine-sub">Weingut Sitenrain · Tenuta Palmeri · Enoteken · Casa Palmeri</div></div><div id="wineArrow">↓</div></div><div class="wine-body" id="wineBody"><p class="intro" style="margin:0 0 16px">Bio-Wein, Degustationen und Genussbausteine als Ergänzung für Reisen, Busgruppen und MICE.</p><div class="wine-grid" id="wineGrid"></div></div></div></section>
-
-    <section class="section"><p class="label">Extras & Ergänzungen</p><div class="extras-wrap"><div class="extras-grid" id="extrasGrid"></div></div></section>
-
-    <section class="section"><p class="label">Gruppen-Erlebnisse</p><p class="intro">Erlebnisse, die man einfach versteht und gut verkaufen kann: kulinarisch, spielerisch, regional, teamfähig.</p><div class="experience-grid" id="experienceGrid"></div></section>
-
-    <section class="section"><p class="label">Aktuelle Eventformate</p><p class="intro">Bestehende Formate können als Reisebausteine oder Inspiration für Gruppenprogramme genutzt werden.</p><div class="events-grid" id="eventGrid"></div></section>
-
-    <section class="section" id="universe"><p class="label">Das Sinnvoll Universum</p><p class="intro">Nicht nur eine Reise. Ein Netzwerk aus Betrieben, Orten, Produkten und Menschen.</p><div class="universe" id="universeGrid"></div></section>
-  </div>
-  <aside class="right"><div class="map"><div class="map-route"></div><div class="pin p-luzern"><span>Luzern</span></div><div class="pin p-weggis"><span>Weggis</span></div><div class="pin p-entlebuch"><span>Entlebuch</span></div><div class="pin p-bruening"><span>Brünig</span></div><div class="pin p-kaiser"><span>Kaiserstuhl</span></div></div><div class="summary"><div class="sum-title">Deine Reise</div><span class="sum-sub">Zusammenfassung & Richtpreis</span><div class="fields"><div class="field"><label>Personen</label><input id="persons" type="number" min="1" max="500" value="24" oninput="updateSummary()"></div><div class="field"><label>Reiseart</label><select id="travelType" onchange="updateSummary()"><option>B2B / Touroperator</option><option>Firmenevent / MICE</option><option>Gruppe / Incentive</option><option>Presse / FAM Trip</option></select></div></div><div id="summaryContent"></div></div><div class="summary-cta"><button class="ask" id="askBtn" onclick="openModal()" disabled>Unverbindliche Anfrage senden →</button><button class="pdf" onclick="alert('PDF-Export wird später aktiviert.')">Als PDF exportieren</button></div></aside>
-</main>
-<div class="modal" id="modal"><div class="modal-box"><div id="modalInner"><div class="modal-head"><div><h2>Anfrage senden</h2><p style="color:var(--ink3)">Wir melden uns mit einem massgeschneiderten Vorschlag.</p></div><button class="close" onclick="closeModal()">×</button></div><div class="modal-summary" id="modalSummary"></div><div class="form"><label>Vorname<input id="firstName" placeholder="Max"></label><label>Nachname<input id="lastName" placeholder="Muster"></label><label>E-Mail<input id="email" type="email" placeholder="max@firma.ch"></label><label>Telefon<input placeholder="+41 79 000 00 00"></label><label>Firma<input placeholder="Firma / Organisation"></label><label>Wunschtermin<input type="date"></label><label class="full">Besondere Wünsche<textarea placeholder="Gruppengrösse, Reiseart, Seminar, Transfers, Allergien..."></textarea></label></div><button class="submit" onclick="submitForm()">Anfrage absenden →</button></div></div></div>
 <script>
-const journeys=[{id:'stadt-berge',title:'Stadt & Berge',tag:'3–4 Nächte · Signature',story:'Luzern erleben, am See ankommen, mit Schiff und Rigi in die Höhe. Eine kompakte Reise mit urbanem Genuss und klassischem Zentralschweiz-Gefühl.',colorA:'#193b6a',colorB:'#10100e',price:890,priceText:'ab CHF 890.–',details:['Luzern Dinner · grottino1313 / gartenHAUS','Alpenblick Weggis · Terrasse & See','Schifffahrt + Rigi als Partnerbaustein','Optional: Gepäcktransfer & Travel Pass'],route:'Luzern · Weggis · Rigi'},{id:'biosphaere-see',title:'Biosphäre & See',tag:'3–4 Nächte · Natur & Genuss',story:'Weggis, Entlebuch und regionale Genussmomente verbinden sich zu einer ruhigen, echten Gruppenreise mit Weingut Sitenrain und Biosphäre.',colorA:'#1c5b4c',colorB:'#6a1b1b',price:780,priceText:'ab CHF 780.–',details:['Hotel Alpenblick Weggis','Weingut Sitenrain · Degustation','Drei Könige · UNESCO Biosphäre','Optional: Produzentenbesuch & Heuschnaps'],route:'Weggis · Sitenrain · Entlebuch'}];
-const stops=[{id:'stop-alpenblick',title:'Bus-Stopp Alpenblick Weggis',accent:'#193b6a',price:39,priceText:'ab CHF 39.– / Person',text:'Panorama-Lunch oder Kaffeehalt in Weggis. Stark für Gruppen mit See- und Schiff-Anschluss.',items:['Terrasse & Aussicht','Gruppenlunch oder Kaffeehalt','Schifffahrt kombinierbar']},{id:'stop-kaiserstuhl',title:'Bus-Stopp Hotel Kaiserstuhl',accent:'#1c5b4c',price:29,priceText:'ab CHF 29.– / Person',text:'Kurzer, klarer Halt am Lungernsee. Ideal für Kaffee, Lunch oder Zwischenstopp Richtung Berner Oberland.',items:['See & Bergkulisse','Busfreundlicher Stopp','Kurze Aufenthalte möglich']}];
-const businesses=[{id:'alpenblick',name:'Hotel Alpenblick Weggis',loc:'Weggis · Vierwaldstättersee',types:['hotel','restaurant','event'],filter:['hotel','restaurant','event','luzern'],ppn:180,claim:'Täglich grüsst der Bernhard',mark:'AB'},{id:'ferus',name:'feRUS hotel restaurant',loc:'Emmen / Luzern',types:['hotel','restaurant'],filter:['hotel','restaurant','luzern'],ppn:140,claim:'beats, bun & beef',mark:'fe'},{id:'kaiserstuhl',name:'Hotel Kaiserstuhl',loc:'Bürglen · Lungernsee',types:['hotel','restaurant'],filter:['hotel','restaurant','berg'],ppn:120,claim:'Berg, See, Genuss',mark:'KS'},{id:'wetterhorn',name:'Hotel Wetterhorn',loc:'Hasliberg · Brünig',types:['hotel','restaurant','event'],filter:['hotel','restaurant','event','berg'],ppn:150,claim:'Kultur am Hasliberg',mark:'WH'},{id:'baeren',name:'Gasthof Bären',loc:'Hasliberg',types:['hotel','restaurant'],filter:['hotel','restaurant','berg'],ppn:110,claim:'herzlich, unkompliziert',mark:'B'},{id:'dreikoenige',name:'Landgasthof Drei Könige',loc:'Entlebuch · Biosphäre',types:['hotel','restaurant','event'],filter:['hotel','restaurant','event','berg'],ppn:120,claim:'offen, vielfältig, neugierig',mark:'3K'},{id:'grottino',name:'grottino1313',loc:'Luzern',types:['restaurant'],filter:['restaurant','luzern'],ppn:0,claim:'Amore auf den ersten Biss',mark:'13'},{id:'gartenhaus',name:'gartenHAUS',loc:'Luzern',types:['restaurant'],filter:['restaurant','luzern'],ppn:0,claim:'für ein gutes Lauchgefühl',mark:'GH'},{id:'flowfood',name:'FlowFood',loc:'Luzern',types:['restaurant'],filter:['restaurant','luzern'],ppn:0,claim:'frisch & regional',mark:'FF'},{id:'moeve',name:'Mövenpick Luzern',loc:'Luzern',types:['restaurant'],filter:['restaurant','luzern'],ppn:0,claim:'saisonal, genussreich, locker',mark:'MP'},{id:'cantina',name:'Cantina1313',loc:'Emmen',types:['restaurant','event'],filter:['restaurant','event','luzern'],ppn:0,claim:'dynamisch, lebhaft, herzhaft',mark:'C13'},{id:'chickenrun',name:'Chicken Run',loc:'Brünigpass',types:['restaurant'],filter:['restaurant','berg'],ppn:0,claim:'Höhenluft macht hungrig',mark:'CR'},{id:'startklar',name:'Startklar Emmen',loc:'Emmen',types:['event'],filter:['event','luzern'],ppn:0,claim:'abheben und geniessen',mark:'SK'},{id:'container13',name:'container13',loc:'Luzern',types:['event'],filter:['event','luzern'],ppn:0,claim:'multikulturell, divers',mark:'C13'},{id:'heuschnaps',name:'Heuschnaps – das Original',loc:'Kriens / überall',types:['restaurant'],filter:['restaurant','luzern'],ppn:0,claim:'kultig, originell, motiviert',mark:'HS'},{id:'catering',name:'Sinnvoll Catering',loc:'Emmen',types:['event'],filter:['event','luzern'],ppn:0,claim:'schnell, schmackhaft',mark:'SC'}];
-const wines=[{id:'sitenrain',name:'Weingut Sitenrain',loc:'Meggen / Luzern',tag:'Bio-Weingut CH'},{id:'palmeri',name:'Tenuta Palmeri',loc:'Avola, Sizilien',tag:'Bio-Weingut IT'},{id:'enoteca-luzern',name:'Enoteca Luzern',loc:'Luzern',tag:'Weinhandlung'},{id:'enoteca-basel',name:'Enoteca Basel',loc:'Basel',tag:'Weinhandlung'},{id:'casa-palmeri',name:'Casa Palmeri Roma',loc:'Rom',tag:'Stay IT'},{id:'quattro-sorelle',name:'Le Quattro Sorelle',loc:'Noto, Sizilien',tag:'Historic Estate'}];
-const extras=[{id:'travelpass-extra',label:'Lucerne Travel Pass',price:265},{id:'rigi',label:'Rigi-Bahnen / Bergticket',price:85},{id:'ship',label:'Schifffahrt Vierwaldstättersee',price:45},{id:'transfer',label:'Gepäck- oder Gruppentransfer',price:25},{id:'sitenrain-degu',label:'Weingut Sitenrain Degustation',price:55},{id:'heuschnaps-tasting',label:'Heuschnaps-Tasting & Story',price:25},{id:'catering-ship',label:'Sinnvoll Catering auf dem Schiff',price:45},{id:'seminar',label:'Seminarraum / Workshop Setup',price:0}];
-const experiences=[{title:'Escape-Brettspiel',desc:'Rätseln als Team — kompakt, spielerisch und gut kombinierbar.',place:'feRUS · gartenHAUS · Drei Könige'},{title:'Krimi-Theater',desc:'Interaktives Mordermittlungs-Dinner für Gruppen.',place:'Landgasthof Drei Könige'},{title:'Private Dining',desc:'Exklusives Dinner für Teams und Gruppen.',place:'Alle Hotelbetriebe'},{title:'Yoga & Brunch',desc:'Gemeinsam starten, danach Genuss am See.',place:'Hotel Alpenblick Weggis'},{title:'Konzert-Shuttle',desc:'Eventlogistik mit Gastronomie verbinden.',place:'Sinnvoll Gastro Gruppe'},{title:'Produzentenbesuch',desc:'Regionalität erleben, nicht nur erzählen.',place:'Biosphäre · Sitenrain'}];
-const events=[{date:'Jeden Donnerstag',title:'BBQ à discrétion',venue:'feRUS hotel restaurant'},{date:'Bis Dez 2026',title:'Panorama Brunch',venue:'Hotel Alpenblick Weggis'},{date:'Jeden Sonntag',title:'Sonntagsbrunch',venue:'grottino1313'},{date:'Regelmässig',title:'Yoga & Brunch',venue:'Hotel Alpenblick Weggis'},{date:'Jeden Dienstag',title:'Spareribs à discrétion',venue:'feRUS hotel restaurant'},{date:'Spezialformat',title:'Gin Workshop',venue:'Landgasthof Drei Könige'}];
-const S={mode:'journey',journey:null,custom:{},stops:new Set(),mice:false,travelPass:false,wines:new Set(),extras:new Set()};
-function jumpTo(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'});}document.querySelectorAll('#nav button').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('#nav button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');jumpTo(btn.dataset.jump)}));
-function renderJourneys(){document.getElementById('journeyGrid').innerHTML=journeys.map(j=>`<article class="journey ${S.journey===j.id?'active':''}" onclick="selectJourney('${j.id}')" style="--a:${j.colorA};--b:${j.colorB}"><div class="tag">${j.tag}</div><h2>${j.title}</h2><p>${j.story}</p><div class="highlights">${j.details.map(d=>`<div>• ${d}</div>`).join('')}</div><div class="price"><span>Richtwert</span><b>${j.priceText}</b></div></article>`).join('')}
-function selectJourney(id){S.mode='journey';S.journey=S.journey===id?null:id;document.getElementById('modeJourney').classList.add('active');document.getElementById('modeCustom').classList.remove('active');document.getElementById('customBuilder').classList.remove('active');renderJourneys();updateSummary()}
-function setMode(mode){S.mode=mode;document.getElementById('modeJourney').classList.toggle('active',mode==='journey');document.getElementById('modeCustom').classList.toggle('active',mode==='custom');document.getElementById('customBuilder').classList.toggle('active',mode==='custom');updateSummary()}
-function renderStops(){document.getElementById('stopGrid').innerHTML=stops.map(s=>`<article class="offer ${S.stops.has(s.id)?'active':''}" style="--accent:${s.accent}" onclick="toggleStop('${s.id}')"><h3>${s.title}</h3><p>${s.text}</p><ul>${s.items.map(i=>`<li>${i}</li>`).join('')}</ul><div class="offer-price">${s.priceText}</div></article>`).join('')}
-function toggleStop(id){S.stops.has(id)?S.stops.delete(id):S.stops.add(id);renderStops();updateSummary()}
-function toggleMice(){S.mice=!S.mice;document.getElementById('miceCard').classList.toggle('active',S.mice);updateSummary()}
-function renderFilters(){const filters=[['all','Alle'],['hotel','Hotels'],['restaurant','Restaurants'],['event','Events'],['luzern','Luzern'],['berg','Berg']];document.getElementById('filters').innerHTML=filters.map((f,i)=>`<button class="chip ${i===0?'active':''}" onclick="filterBusinesses('${f[0]}',this)">${f[1]}</button>`).join('')}
-function filterBusinesses(f,el){document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');renderBusinesses(f)}
-function renderBusinesses(f='all'){const list=f==='all'?businesses:businesses.filter(b=>b.filter.includes(f));document.getElementById('businessGrid').innerHTML=list.map(b=>{const active=S.custom[b.id]!==undefined;const nights=S.custom[b.id]||1;return`<article class="business ${active?'active':''}" onclick="toggleBusiness('${b.id}')"><div class="btop"><div class="bmark">${b.mark}</div><div><div class="bname">${b.name}</div><div class="bloc">${b.loc}</div></div></div><div class="btags">${b.types.includes('hotel')?'<span class="btag hotel">Hotel</span>':''}${b.types.includes('restaurant')?'<span class="btag rest">Restaurant</span>':''}${b.types.includes('event')?'<span class="btag event">Event</span>':''}</div><div class="claim">${b.claim}</div>${b.types.includes('hotel')?`<div class="nights" onclick="event.stopPropagation()"><span>Nächte:</span><button onclick="changeNights('${b.id}',-1)">−</button><span class="nval">${nights}</span><button onclick="changeNights('${b.id}',1)">+</button></div>`:''}</article>`}).join('')}
-function toggleBusiness(id){S.mode='custom';setMode('custom');if(S.custom[id]!==undefined)delete S.custom[id];else S.custom[id]=1;renderBusinesses(document.querySelector('.chip.active')?.textContent.toLowerCase()==='alle'?'all':document.querySelector('.chip.active')?.textContent.toLowerCase()||'all');updateSummary()}
-function changeNights(id,d){if(S.custom[id]===undefined)S.custom[id]=1;S.custom[id]=Math.max(1,Math.min(14,S.custom[id]+d));renderBusinesses();updateSummary()}
-function toggleTravelPass(){S.travelPass=!S.travelPass;document.getElementById('travelPass').classList.toggle('active',S.travelPass);updateSummary()}
-function toggleWineOpen(){document.getElementById('wineBody').classList.toggle('open');document.getElementById('wineArrow').textContent=document.getElementById('wineBody').classList.contains('open')?'↑':'↓'}
-function renderWine(){document.getElementById('wineGrid').innerHTML=wines.map(w=>`<article class="wine-card ${S.wines.has(w.id)?'active':''}" onclick="toggleWine('${w.id}')"><span>${w.tag}</span><h4>${w.name}</h4><p>${w.loc}</p></article>`).join('')}
-function toggleWine(id){S.wines.has(id)?S.wines.delete(id):S.wines.add(id);renderWine();updateSummary()}
-function renderExtras(){document.getElementById('extrasGrid').innerHTML=extras.map(e=>`<div class="extra ${S.extras.has(e.id)?'active':''}" onclick="toggleExtra('${e.id}')"><div class="box">${S.extras.has(e.id)?'✓':''}</div><div><strong>${e.label}</strong><small>${e.price?'+ CHF '+e.price+'.– / Person':'auf Anfrage'}</small></div></div>`).join('')}
-function toggleExtra(id){S.extras.has(id)?S.extras.delete(id):S.extras.add(id);renderExtras();updateSummary()}
-function renderCards(){document.getElementById('experienceGrid').innerHTML=experiences.map(e=>`<article class="experience-card"><div class="exp-title">${e.title}</div><div class="exp-desc">${e.desc}</div><div class="exp-place">${e.place}</div></article>`).join('');document.getElementById('eventGrid').innerHTML=events.map(e=>`<article class="event-card"><div class="event-date">${e.date}</div><div class="event-title">${e.title}</div><div class="event-venue">${e.venue}</div></article>`).join('');const universe=['Sinnvoll Gastro','Alpenblick','feRUS','Wetterhorn','Kaiserstuhl','Drei Könige','grottino1313','gartenHAUS','Chicken Run','Startklar','Sinnvoll Catering','Weingut Sitenrain'];document.getElementById('universeGrid').innerHTML=universe.map((u,i)=>`<div class="u-card ${i===0?'gold':i%5===0?'light':''}">${u}</div>`).join('')}
-function updateSummary(){const persons=Math.min(500,Math.max(1,parseInt(document.getElementById('persons').value)||1));document.getElementById('persons').value=persons;let html='',items=[],base=0;const add=(section,name,detail,price)=>{items.push({section,name,detail,price});base+=price||0};if(S.mode==='journey'&&S.journey){const j=journeys.find(x=>x.id===S.journey);add('Reise',j.title,j.route,j.price)}if(S.mode==='custom'){Object.entries(S.custom).forEach(([id,n])=>{const b=businesses.find(x=>x.id===id);if(!b)return;add('Betriebe',b.name,b.ppn?`${n} Nacht/Nächte`:b.loc,b.ppn?b.ppn*n:0)})}if(S.mice)add('MICE','MICE & Incentive','Alpenblick · Wetterhorn · Brünig',0);S.stops.forEach(id=>{const s=stops.find(x=>x.id===id);add('Bus-Stopp',s.title,'Tour-Stop Lösung',s.price)});if(S.travelPass)add('Partner','Lucerne Travel Pass','Optionaler Mobilitätsbaustein',265);S.wines.forEach(id=>{const w=wines.find(x=>x.id===id);add('Weinwelt',w.name,w.loc,0)});S.extras.forEach(id=>{const e=extras.find(x=>x.id===id);add('Extras',e.label,e.price?'Ergänzung':'auf Anfrage',e.price||0)});if(items.length===0){document.getElementById('summaryContent').innerHTML='<div class="empty">Wähle eine Reise, einen Bus-Stopp, MICE oder einzelne Bausteine.</div>';document.getElementById('askBtn').disabled=true;window.summaryItems=[];return}document.getElementById('askBtn').disabled=false;let last='';items.forEach(i=>{if(i.section!==last){html+=`<div class="sum-label">${i.section}</div>`;last=i.section}html+=`<div class="sum-item"><div><div class="sum-name">${i.name}</div><div class="sum-detail">${i.detail||''}</div></div><div class="sum-price">${i.price?'CHF '+(i.price*persons)+'.–':'auf Anfrage'}</div></div>`});const total=base*persons;html+=`<div class="total"><div><div class="total-label">Richtpreis total</div><div class="note">Finales Angebot auf Anfrage</div></div><div class="total-value">CHF ${total}.–</div></div>`;document.getElementById('summaryContent').innerHTML=html;window.summaryItems=items;window.summaryTotal=total}
-function openModal(){const items=window.summaryItems||[];document.getElementById('modalSummary').innerHTML=items.map(i=>`<div class="sum-item" style="border-color:var(--paper3)"><div><div class="sum-name" style="color:var(--ink)">${i.name}</div><div class="sum-detail" style="color:var(--ink3)">${i.detail||''}</div></div></div>`).join('')+`<div style="font-family:'Fjalla One';margin-top:12px">Richtpreis: CHF ${window.summaryTotal||0}.–</div>`;document.getElementById('modal').classList.add('open')}
-function closeModal(){document.getElementById('modal').classList.remove('open')}
-function submitForm(){const fn=document.getElementById('firstName').value.trim(),ln=document.getElementById('lastName').value.trim(),em=document.getElementById('email').value.trim();if(!fn||!ln||!em){alert('Bitte Vorname, Nachname und E-Mail ausfüllen.');return}document.getElementById('modalInner').innerHTML='<div class="success"><div class="check">✓</div><h2>Anfrage erhalten</h2><p style="color:var(--ink3);margin-top:8px">Vielen Dank. Wir melden uns mit einem massgeschneiderten Vorschlag.</p><button class="submit" onclick="closeModal()">Schliessen</button></div>'}
-renderJourneys();renderStops();renderFilters();renderBusinesses();renderWine();renderExtras();renderCards();updateSummary();
+    // Vollständige Daten aus PPTX
+    const locations = [
+        { name: "Restaurant Grottino 1313", tagline: "Amore auf den ersten Biss.", desc: "Mediterrane Lebensfreude, kulinarischer Hochgenuss – eine Oase für Geniesser und Romantiker. Täglich wechselndes Überraschungsmenü aus der offenen Küche.", features: ["80 Plätze Restaurant", "16/40 Atelier (Sitz/Steh)", "55 Terrasse", "42 Weinkeller (Sitz)/60 Steh", "Seminar 12 Pers."], contact: ["Industriestrasse 7, 6005 Luzern", "041 610 13 13", "info@grottino1313.ch"], category: "restaurant", img: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=800" },
+        { name: "Restaurant gartenHAUS 1313", tagline: "Gute alte Zeiten neu kreiert!", desc: "Heimatverbundene Trendsetter & Nostalgiker fühlen sich hier zuhause. Alte Rezepte neu entdeckt, verfeinert & leicht gemacht.", features: ["65 Plätze Restaurant", "35 Lindenstrübli", "65 Terrasse", "Seminar 20 Pers."], contact: ["Lindenstrasse 21, 6015 Luzern", "041 240 25 65", "info@gartenhaus1313.ch"], category: "restaurant", img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800" },
+        { name: "feRUS hotel | bar | grill", tagline: "Authentizität und Innovation.", desc: "Feurige Grillspezialitäten, saftige Burger, kühles Bier – der Büezer trifft trendbewussten Geniesser. Genuss ohne Grenzen.", features: ["22 Zimmer, 39 Betten", "100 Restaurant", "80 Terrasse", "Bar 16", "Weinkeller 15"], contact: ["Rothenburgstrasse 45, 6020 Emmenbrücke", "041 211 13 31", "info@ferus.ch"], category: "hotel", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800" },
+        { name: "Food Passion (Seetalplatz)", tagline: "Energie-Speicher den ganzen Tag.", desc: "Frühstück, Mittag, Kaffee – wir tanken deinen Tag. Abends exklusiv mietbar für Events & Familienfeiern.", features: ["54-60 Plätze", "22 Terrasse", "abends exklusiv"], contact: ["Hauptstrasse 50, 6015 Luzern", "041 322 13 13", "sinnvoll@foodpassion.ch"], category: "restaurant", img: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800" },
+        { name: "Startklar Emmen", tagline: "Fetzige Events & rauschende Feste", desc: "Hochzeiten, Firmenfeiern, Männerabende – die Eventlocation in Emmen. Hier knallen die Korken!", features: ["130 Plätze Halle", "80-100 Seminarbestuhlung", "exklusiv mietbar"], contact: ["Buholzstrasse 12, 6032 Emmen", "041 520 74 00", "info@startklaremmen.ch"], category: "event", img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800" },
+        { name: "Hotel Alpenblick Weggis", tagline: "Über den Dächern von Weggis", desc: "Panoramablick auf Pilatus, Rigi & Vierwaldstättersee. Ideal für Geschäftsreisende & Individualgäste.", features: ["30 Zimmer, 50 Betten", "92 Restaurant", "80 Terrasse", "Weinkeller 15", "Seminar 40"], contact: ["Luzernerstrasse 31, 6353 Weggis", "041 399 05 05", "info@alpenblick-weggis.ch"], category: "hotel", img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800" },
+        { name: "Hotel & Restaurant Kaiserstuhl", tagline: "Liebhaber lukullischer Regionalität", desc: "Direkt am Lungernsee mit unvergesslicher Bergkulisse. Warme Atmosphäre & regionale Küche.", features: ["20 Zimmer, 45 Betten", "60 Restaurant", "Biergarten 46", "Terrasse 76", "Seminar 20"], contact: ["Brünigstrasse 232, 6078 Bürglen", "041 310 13 13", "info@kaiserstuhl-lungernsee.ch"], category: "hotel", img: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800" },
+        { name: "Passhöhe1013 (Brünig) · Chicken Run", tagline: "Nirgendwo schmeckts besser als ganz oben!", desc: "Höhenluft macht hungrig! Direkt am Brünigpass – unsere besondere Raststätte. Jetzt mit 'Chicken Run' Flair: herzhaft, wild und urig.", features: ["65 Restaurant", "50 Terrasse", "exklusiv mietbar", "Chicken Run Spezial"], contact: ["Brünig 645, 3860 Brünig", "033 522 13 23", "info@passhoehe1013.ch"], category: "restaurant", img: "https://images.unsplash.com/photo-1508873696983-2dfd5898f08f?w=800" },
+        { name: "Hotel Wetterhorn Hasliberg", tagline: "Harmonie von Alpenpanorama & Wildheit", desc: "Unberührte Natur, mildes Klima – eingebettet in idyllischen Flecken Erde. Restaurant mit traditioneller Küche.", features: ["19 Zimmer, 68 Betten", "60 Restaurant", "Bar 30/350 (Sitz/Steh)", "Terrasse 30", "Seminar 12-18"], contact: ["Hohfluh, 6083 Hasliberg", "033 975 13 13", "info@wetterhorn-hasliberg.ch"], category: "hotel", img: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800" },
+        { name: "Gasthof Bären Hasliberg", tagline: "Pasta, Pizza, Perfetto!", desc: "Italienità pur – hausgemachte Pasta & Pizza mit viel Herzblut. Frisch, original & voller Lebensfreude.", features: ["8 Zimmer, 22 Betten", "60 Restaurant", "30 Terrasse", "Seminar 20"], contact: ["Sattel 35, 6083 Hasliberg", "033 522 13 22", "info@diepizzeria.ch"], category: "restaurant", img: "https://images.unsplash.com/photo-1595295333158-4742f28fbd85?w=800" },
+        { name: "Landgasthof Drei Könige", tagline: "Atmosphäre, Privatsphäre, Biosphäre.", desc: "Urig, urchig & ehrlich. Saal für 200 Gäste, gemütliche Stuben – perfekt für grosse Feste im Entlebuch.", features: ["11 Zimmer, 20 Betten", "Saal 200 Plätze", "Schibi Keller 40/80", "Bauernstube 30"], contact: ["Dorf 27, 6162 Entlebuch", "041 480 12 27", "info@3koenige-entlebuch.ch"], category: "hotel", img: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800" },
+        { name: "Weinkeller Grottino 1313", tagline: "Exklusive Anlässe im Gewölbe", desc: "Steingewölbe, warmes Licht – perfekt für private Feiern oder Firmenevents mit mediterranem Flair.", features: ["42 Sitzplätze / 60 Stehplätze", "exklusiv mietbar", "individuelle Menüs"], contact: ["Industriestrasse 7, Luzern", "041 610 13 13", "info@grottino1313.ch"], category: "event", img: "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=800" },
+        { name: "Kaiserstuhl Event & Seminar", tagline: "Tagungen mit Seeblick", desc: "Seminarraum für 20 Personen mit atemberaubendem Lungernsee-Panorama – ideal für kreative Workshops.", features: ["Seminar 20 Pers.", "Terrasse 76", "Catering & Technik"], contact: ["Brünigstrasse 232, Bürglen", "041 310 13 13", "info@kaiserstuhl-lungernsee.ch"], category: "event", img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800" }
+    ];
+
+    function renderCards(filter = "all") {
+        const grid = document.getElementById("locationsGrid");
+        grid.innerHTML = "";
+        const filtered = filter === "all" ? locations : locations.filter(l => l.category === filter);
+        if(filtered.length === 0) {
+            grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:3rem;">Keine Locations in dieser Kategorie ☀️</div>`;
+            return;
+        }
+        filtered.forEach((loc, idx) => {
+            const card = document.createElement("div");
+            card.className = "location-card";
+            card.style.animationDelay = `${idx * 0.03}s`;
+            const featuresHtml = loc.features.map(f => `<span><i class="fas fa-check-circle"></i> ${f}</span>`).join("");
+            const contactHtml = loc.contact.map(c => {
+                let icon = "fa-location-dot";
+                if(c.includes("@")) icon = "fa-envelope";
+                else if(c.match(/0\d{2,3}/)) icon = "fa-phone";
+                return `<span><i class="fas ${icon}"></i> ${c}</span>`;
+            }).join("");
+            card.innerHTML = `
+                <div class="card-img" style="background-image: linear-gradient(to top, rgba(0,0,0,0.2), rgba(0,0,0,0.05)), url('${loc.img}'); background-size: cover;">
+                    <div class="img-overlay"><i class="fas fa-camera"></i> exklusiv mietbar · Parkplätze</div>
+                </div>
+                <div class="card-content">
+                    <div class="location-name">${loc.name}</div>
+                    <div class="tagline">“${loc.tagline}”</div>
+                    <div class="description">${loc.desc}</div>
+                    <div class="features">${featuresHtml}</div>
+                    <div class="contact-info">${contactHtml}</div>
+                    <div class="btn-rent"><i class="fas fa-calendar-alt"></i> Jetzt Event anfragen</div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    // Filter buttons
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            renderCards(btn.dataset.filter);
+        });
+    });
+    renderCards("all");
 </script>
 </body>
 </html>

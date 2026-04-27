@@ -3,82 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Food Passion · Sinnvoll betreiben mit Leidenschaft</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Food Passion · sinnvoll betreiben</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             background: #F5F0E8;
             font-family: 'Inter', sans-serif;
             color: #2C2B28;
             scroll-behavior: smooth;
         }
-        /* Hero mit Bild */
+
+        /* HERO – ohne Emojis, mit Wortcollage im «sinnvoll»-Stil */
         .hero {
-            background: linear-gradient(rgba(26, 63, 44, 0.75), rgba(26, 63, 44, 0.85)), url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600');
-            background-size: cover;
-            background-position: center 40%;
-            color: white;
-            padding: 4rem 2rem 5rem 2rem;
-            text-align: center;
+            background: #1A3F2C;  /* tiefes Tannengrün als Basis */
+            color: #F5F0E8;
+            padding: 3rem 2rem 4rem 2rem;
             position: relative;
+            overflow: hidden;
         }
-        /* Wortwolke aus dem Hero-Bild – als Overlay-Animation */
-        .hero-values {
+        /* dezente Textur / Andeutung von Struktur */
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(212, 163, 115, 0.08) 1px, transparent 1px);
+            background-size: 28px 28px;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 1300px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .hero-title h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #F5F0E8;
+            margin-bottom: 0.5rem;
+        }
+        .hero-title p {
+            font-size: 1.1rem;
+            font-weight: 400;
+            opacity: 0.85;
+            border-top: 1px solid rgba(212, 163, 115, 0.4);
+            display: inline-block;
+            padding-top: 0.75rem;
+        }
+
+        /* Wortcollage – angelehnt an das zweite Bild: verspielt, typografisch, ohne Emojis */
+        .word-collage {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 1rem 2rem;
-            margin-top: 1.5rem;
-            font-family: 'Playfair Display', serif;
+            margin: 2.5rem 0 2rem;
+            padding: 1rem 0;
+        }
+        .word {
+            font-family: 'Inter', sans-serif;
             font-weight: 500;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
+            letter-spacing: -0.2px;
+            color: #F5F0E8;
+            transition: all 0.2s ease;
             opacity: 0.9;
-        }
-        .hero-values span {
-            background: rgba(255,255,240,0.15);
-            backdrop-filter: blur(4px);
-            padding: 0.3rem 1rem;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            animation: floatWords 6s infinite ease-in-out;
             display: inline-block;
+            line-height: 1.2;
         }
-        @keyframes floatWords {
-            0%,100%{ transform: translateY(0px);}
-            50%{ transform: translateY(-5px);}
+        /* unterschiedliche Gewichte und Grössen für den «Handsärmlig»-Charakter */
+        .word-xl { font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; }
+        .word-lg { font-size: 1.8rem; font-weight: 700; }
+        .word-md { font-size: 1.3rem; font-weight: 600; }
+        .word-sm { font-size: 1rem; font-weight: 400; text-transform: uppercase; letter-spacing: 2px; }
+        .word-italic { font-style: italic; font-family: 'Playfair Display', serif; font-weight: 600; }
+        .word-rotated { transform: rotate(-2deg); display: inline-block; }
+        .word-border { border-bottom: 2px solid #D4A373; padding-bottom: 2px; }
+
+        /* kleine Handsärmlig-Akzente */
+        .collage-line {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem 2rem;
+            margin-top: 0.5rem;
         }
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
+
+        .hero-footer {
+            text-align: center;
+            margin-top: 2.5rem;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            border-top: 1px solid rgba(212,163,115,0.3);
+            padding-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
         }
-        .hero p { font-size: 1.2rem; max-width: 700px; margin: 0 auto; opacity: 0.9; }
+        .hero-footer span {
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        /* Filter */
         .filter-bar {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 0.75rem;
-            margin: 2rem 1.5rem 1rem;
+            margin: 2.5rem 1.5rem 1rem;
         }
         .filter-btn {
             background: transparent;
             border: 1px solid #D4A373;
-            padding: 0.5rem 1.25rem;
+            padding: 0.5rem 1.4rem;
             border-radius: 40px;
+            font-family: 'Inter', sans-serif;
             font-weight: 500;
+            font-size: 0.85rem;
             cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.2s ease;
             color: #4A3B2A;
         }
         .filter-btn.active, .filter-btn:hover {
             background: #D4A373;
             color: #1A3F2C;
             border-color: #D4A373;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
+
+        /* Grid & Cards */
         .locations-grid {
             max-width: 1400px;
             margin: 2rem auto;
@@ -91,18 +163,18 @@
             background: white;
             border-radius: 28px;
             overflow: hidden;
-            box-shadow: 0 12px 28px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.3s ease;
             opacity: 0;
             transform: translateY(30px);
             animation: cardReveal 0.5s forwards;
         }
         @keyframes cardReveal {
-            to { opacity: 1; transform: translateY(0);}
+            to { opacity: 1; transform: translateY(0); }
         }
         .location-card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 25px 35px rgba(0,0,0,0.12);
+            box-shadow: 0 24px 36px rgba(0, 0, 0, 0.1);
         }
         .card-img {
             height: 210px;
@@ -111,15 +183,16 @@
             position: relative;
         }
         .img-overlay {
-            background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+            background: linear-gradient(to top, rgba(0,0,0,0.55), transparent);
             width: 100%;
             padding: 1rem;
             color: white;
-            font-weight: 600;
+            font-weight: 500;
             position: absolute;
             bottom: 0;
             left: 0;
             font-size: 0.8rem;
+            letter-spacing: 0.3px;
         }
         .card-content { padding: 1.5rem; }
         .location-name {
@@ -128,6 +201,7 @@
             font-weight: 700;
             color: #1A3F2C;
             margin-bottom: 0.3rem;
+            line-height: 1.2;
         }
         .tagline {
             font-style: italic;
@@ -137,7 +211,12 @@
             padding-left: 0.75rem;
             margin-bottom: 1rem;
         }
-        .description { font-size: 0.9rem; line-height: 1.45; margin-bottom: 1rem; color: #3A3A38; }
+        .description {
+            font-size: 0.9rem;
+            line-height: 1.45;
+            margin-bottom: 1rem;
+            color: #3A3A38;
+        }
         .features {
             display: flex;
             flex-wrap: wrap;
@@ -169,6 +248,7 @@
             color: #1A3F2C;
             display: inline-block;
             cursor: default;
+            transition: 0.1s;
         }
         footer {
             background: #1A3F2C;
@@ -176,51 +256,86 @@
             text-align: center;
             padding: 2rem;
             font-size: 0.85rem;
+            border-top: 1px solid #D4A37340;
         }
         @media (max-width: 760px) {
-            .hero h1 { font-size: 2.2rem; }
+            .hero-title h1 { font-size: 2.2rem; }
+            .word-xl { font-size: 1.6rem; }
+            .word-lg { font-size: 1.4rem; }
             .locations-grid { padding: 0 1rem; gap: 1.4rem; }
+            .collage-line { gap: 0.5rem 1rem; }
         }
     </style>
 </head>
 <body>
 
 <div class="hero">
-    <h1>sinnvoll · betreiben mit food passion</h1>
-    <p>13 einzigartige Locations · mediterrane Lebensfreude trifft alpine Herzlichkeit</p>
-    <div class="hero-values">
-        <span>✨ SPANNEND</span> <span>🔥 ANDERS</span> <span>💛 FREUD</span> <span>🌿 VIELSEITIG</span>
-        <span>🤝 «HEU» ZÄME</span> <span>🌟 AUTHENTISCH</span> <span>♻️ NACHHALTIG</span>
-        <span>🏆 DAS ORIGINAL</span> <span>💚 SINNVOLL</span> <span>🍷 GENUSSVOLL</span>
-        <span>😌 GEFÜHL</span> <span>🏔️ URCHIG</span> <span>🎯 SPEZIELL</span> <span>✨ ERLEBNIS</span>
+    <div class="hero-content">
+        <div class="hero-title">
+            <h1>sinnvoll · betreiben mit food passion</h1>
+            <p>13 einzigartige Locations · mediterrane Lebensfreude trifft alpine Herzlichkeit</p>
+        </div>
+
+        <!-- TYPOGRAPHISCHE WORTCOLLAGE IM «SINNVOLL»-STIL (angelehnt an das zweite Bild, ohne Emojis) -->
+        <div class="word-collage">
+            <span class="word word-xl">SPANNEND</span>
+            <span class="word word-lg word-italic">ANDERS</span>
+            <span class="word word-md">FREUD</span>
+            <span class="word word-sm word-border">VIELSEITIG</span>
+            <span class="word word-md word-rotated">«HEU» ZÄME</span>
+            <span class="word word-lg">AUTHENTISCH</span>
+            <span class="word word-md word-italic">NACHHALTIG</span>
+            <span class="word word-xl word-border">DAS ORIGINAL</span>
+            <span class="word word-md">SINNVOLL</span>
+        </div>
+        <div class="collage-line">
+            <span class="word word-sm">GENUSSVOLL</span>
+            <span class="word word-md word-italic">GEFÜHL</span>
+            <span class="word word-sm word-rotated">URCHIG</span>
+            <span class="word word-md">SPEZIELL</span>
+            <span class="word word-lg word-border">ERLEBNIS</span>
+            <span class="word word-sm">HANDSÄRMLIG</span>
+            <span class="word word-md word-italic">WASCHECHT</span>
+            <span class="word word-sm">WÄUTS</span>
+            <span class="word word-sm">GASTRO SHABBY</span>
+            <span class="word word-sm">VERSTAND</span>
+        </div>
+
+        <div class="hero-footer">
+            <span>Alle Räumlichkeiten exklusiv mietbar</span>
+            <span>·</span>
+            <span>Parkplätze vorhanden</span>
+            <span>·</span>
+            <span>sinnvoll · echt · handsärmlig</span>
+        </div>
     </div>
-    <div class="sub" style="margin-top:1.2rem; font-size:0.9rem;">❤️ Alle Räumlichkeiten exklusiv mietbar · Parkplätze vorhanden</div>
 </div>
 
 <div class="filter-bar" id="filterBar">
     <button class="filter-btn active" data-filter="all">Alle anzeigen</button>
-    <button class="filter-btn" data-filter="restaurant">Restaurant / Gast</button>
+    <button class="filter-btn" data-filter="restaurant">Restaurant / Genuss</button>
     <button class="filter-btn" data-filter="hotel">Hotel & Seminar</button>
-    <button class="filter-btn" data-filter="event">Eventhalle / Party</button>
+    <button class="filter-btn" data-filter="event">Event / Party</button>
 </div>
 
 <div class="locations-grid" id="locationsGrid"></div>
 
 <footer>
-    <i class="fas fa-heart" style="color:#D4A373;"></i> Food Passion Zentrale · Hauptstrasse 50, 6015 Luzern · 041 322 13 13 · sinnvoll@foodpassion.ch
+    <span>Sinnvoll Gastro AG · Amlehnstrasse 31, 6015 Kriens · 041 322 13 13 · info@sinnvollgastro.ch</span>
+    <span style="display:block; margin-top:0.5rem; font-size:0.75rem;">sinnvoll betreiben – seit Generationen</span>
 </footer>
 
 <script>
-    // Vollständige Daten aus PPTX
+    // DATEN AUS DER PPTX – alle 13 Locations (mit Platzhalter-Bildern, die du später 1:1 ersetzen kannst)
     const locations = [
         { name: "Restaurant Grottino 1313", tagline: "Amore auf den ersten Biss.", desc: "Mediterrane Lebensfreude, kulinarischer Hochgenuss – eine Oase für Geniesser und Romantiker. Täglich wechselndes Überraschungsmenü aus der offenen Küche.", features: ["80 Plätze Restaurant", "16/40 Atelier (Sitz/Steh)", "55 Terrasse", "42 Weinkeller (Sitz)/60 Steh", "Seminar 12 Pers."], contact: ["Industriestrasse 7, 6005 Luzern", "041 610 13 13", "info@grottino1313.ch"], category: "restaurant", img: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=800" },
         { name: "Restaurant gartenHAUS 1313", tagline: "Gute alte Zeiten neu kreiert!", desc: "Heimatverbundene Trendsetter & Nostalgiker fühlen sich hier zuhause. Alte Rezepte neu entdeckt, verfeinert & leicht gemacht.", features: ["65 Plätze Restaurant", "35 Lindenstrübli", "65 Terrasse", "Seminar 20 Pers."], contact: ["Lindenstrasse 21, 6015 Luzern", "041 240 25 65", "info@gartenhaus1313.ch"], category: "restaurant", img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800" },
         { name: "feRUS hotel | bar | grill", tagline: "Authentizität und Innovation.", desc: "Feurige Grillspezialitäten, saftige Burger, kühles Bier – der Büezer trifft trendbewussten Geniesser. Genuss ohne Grenzen.", features: ["22 Zimmer, 39 Betten", "100 Restaurant", "80 Terrasse", "Bar 16", "Weinkeller 15"], contact: ["Rothenburgstrasse 45, 6020 Emmenbrücke", "041 211 13 31", "info@ferus.ch"], category: "hotel", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800" },
-        { name: "Food Passion (Seetalplatz)", tagline: "Energie-Speicher den ganzen Tag.", desc: "Frühstück, Mittag, Kaffee – wir tanken deinen Tag. Abends exklusiv mietbar für Events & Familienfeiern.", features: ["54-60 Plätze", "22 Terrasse", "abends exklusiv"], contact: ["Hauptstrasse 50, 6015 Luzern", "041 322 13 13", "sinnvoll@foodpassion.ch"], category: "restaurant", img: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800" },
+        { name: "Flow Food", tagline: "Energie-Speicher den ganzen Tag.", desc: "Frühstück, Mittag, Kaffee – wir tanken deinen Tag. Abends exklusiv mietbar für Events & Familienfeiern.", features: ["54-60 Plätze", "22 Terrasse", "abends exklusiv"], contact: ["Hauptstrasse 50, 6015 Luzern", "041 322 13 13", "sinnvoll@foodpassion.ch"], category: "restaurant", img: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800" },
         { name: "Startklar Emmen", tagline: "Fetzige Events & rauschende Feste", desc: "Hochzeiten, Firmenfeiern, Männerabende – die Eventlocation in Emmen. Hier knallen die Korken!", features: ["130 Plätze Halle", "80-100 Seminarbestuhlung", "exklusiv mietbar"], contact: ["Buholzstrasse 12, 6032 Emmen", "041 520 74 00", "info@startklaremmen.ch"], category: "event", img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800" },
         { name: "Hotel Alpenblick Weggis", tagline: "Über den Dächern von Weggis", desc: "Panoramablick auf Pilatus, Rigi & Vierwaldstättersee. Ideal für Geschäftsreisende & Individualgäste.", features: ["30 Zimmer, 50 Betten", "92 Restaurant", "80 Terrasse", "Weinkeller 15", "Seminar 40"], contact: ["Luzernerstrasse 31, 6353 Weggis", "041 399 05 05", "info@alpenblick-weggis.ch"], category: "hotel", img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800" },
         { name: "Hotel & Restaurant Kaiserstuhl", tagline: "Liebhaber lukullischer Regionalität", desc: "Direkt am Lungernsee mit unvergesslicher Bergkulisse. Warme Atmosphäre & regionale Küche.", features: ["20 Zimmer, 45 Betten", "60 Restaurant", "Biergarten 46", "Terrasse 76", "Seminar 20"], contact: ["Brünigstrasse 232, 6078 Bürglen", "041 310 13 13", "info@kaiserstuhl-lungernsee.ch"], category: "hotel", img: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800" },
-        { name: "Passhöhe1013 (Brünig) · Chicken Run", tagline: "Nirgendwo schmeckts besser als ganz oben!", desc: "Höhenluft macht hungrig! Direkt am Brünigpass – unsere besondere Raststätte. Jetzt mit 'Chicken Run' Flair: herzhaft, wild und urig.", features: ["65 Restaurant", "50 Terrasse", "exklusiv mietbar", "Chicken Run Spezial"], contact: ["Brünig 645, 3860 Brünig", "033 522 13 23", "info@passhoehe1013.ch"], category: "restaurant", img: "https://images.unsplash.com/photo-1508873696983-2dfd5898f08f?w=800" },
+        { name: "Passhöhe1013 (Brünig) · Chicken Run", tagline: "Nirgendwo schmeckts besser als ganz oben!", desc: "Höhenluft macht hungrig! Direkt am Brünigpass – unsere besondere Raststätte. Jetzt mit 'Chicken Run' Flair: herzhaft, wild und urig.", features: ["65 Restaurant", "50 Terrasse", "exklusiv mietbar", "Chicken Run Special"], contact: ["Brünig 645, 3860 Brünig", "033 522 13 23", "info@passhoehe1013.ch"], category: "restaurant", img: "https://images.unsplash.com/photo-1508873696983-2dfd5898f08f?w=800" },
         { name: "Hotel Wetterhorn Hasliberg", tagline: "Harmonie von Alpenpanorama & Wildheit", desc: "Unberührte Natur, mildes Klima – eingebettet in idyllischen Flecken Erde. Restaurant mit traditioneller Küche.", features: ["19 Zimmer, 68 Betten", "60 Restaurant", "Bar 30/350 (Sitz/Steh)", "Terrasse 30", "Seminar 12-18"], contact: ["Hohfluh, 6083 Hasliberg", "033 975 13 13", "info@wetterhorn-hasliberg.ch"], category: "hotel", img: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800" },
         { name: "Gasthof Bären Hasliberg", tagline: "Pasta, Pizza, Perfetto!", desc: "Italienità pur – hausgemachte Pasta & Pizza mit viel Herzblut. Frisch, original & voller Lebensfreude.", features: ["8 Zimmer, 22 Betten", "60 Restaurant", "30 Terrasse", "Seminar 20"], contact: ["Sattel 35, 6083 Hasliberg", "033 522 13 22", "info@diepizzeria.ch"], category: "restaurant", img: "https://images.unsplash.com/photo-1595295333158-4742f28fbd85?w=800" },
         { name: "Landgasthof Drei Könige", tagline: "Atmosphäre, Privatsphäre, Biosphäre.", desc: "Urig, urchig & ehrlich. Saal für 200 Gäste, gemütliche Stuben – perfekt für grosse Feste im Entlebuch.", features: ["11 Zimmer, 20 Betten", "Saal 200 Plätze", "Schibi Keller 40/80", "Bauernstube 30"], contact: ["Dorf 27, 6162 Entlebuch", "041 480 12 27", "info@3koenige-entlebuch.ch"], category: "hotel", img: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800" },
@@ -233,7 +348,7 @@
         grid.innerHTML = "";
         const filtered = filter === "all" ? locations : locations.filter(l => l.category === filter);
         if(filtered.length === 0) {
-            grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:3rem;">Keine Locations in dieser Kategorie ☀️</div>`;
+            grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:3rem;">Keine Locations in dieser Kategorie – aber bestimmt bald ein neuer Lieblingsort</div>`;
             return;
         }
         filtered.forEach((loc, idx) => {
@@ -248,8 +363,8 @@
                 return `<span><i class="fas ${icon}"></i> ${c}</span>`;
             }).join("");
             card.innerHTML = `
-                <div class="card-img" style="background-image: linear-gradient(to top, rgba(0,0,0,0.2), rgba(0,0,0,0.05)), url('${loc.img}'); background-size: cover;">
-                    <div class="img-overlay"><i class="fas fa-camera"></i> exklusiv mietbar · Parkplätze</div>
+                <div class="card-img" style="background-image: linear-gradient(to top, rgba(0,0,0,0.25), rgba(0,0,0,0.05)), url('${loc.img}'); background-size: cover;">
+                    <div class="img-overlay"><i class="fas fa-key"></i> exklusiv mietbar · Parkplätze</div>
                 </div>
                 <div class="card-content">
                     <div class="location-name">${loc.name}</div>
@@ -257,14 +372,14 @@
                     <div class="description">${loc.desc}</div>
                     <div class="features">${featuresHtml}</div>
                     <div class="contact-info">${contactHtml}</div>
-                    <div class="btn-rent"><i class="fas fa-calendar-alt"></i> Jetzt Event anfragen</div>
+                    <div class="btn-rent"><i class="fas fa-calendar-alt"></i> Event anfragen</div>
                 </div>
             `;
             grid.appendChild(card);
         });
     }
 
-    // Filter buttons
+    // Filter-Buttons
     document.querySelectorAll(".filter-btn").forEach(btn => {
         btn.addEventListener("click", () => {
             document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
@@ -273,6 +388,9 @@
         });
     });
     renderCards("all");
+</script>
+</body>
+</html>
 </script>
 </body>
 </html>
